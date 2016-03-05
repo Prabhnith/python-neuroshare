@@ -1,11 +1,10 @@
-
 from .Entity import Entity
 
-
 class EventEntity(Entity):
-    """Event entities represent specific timepoints with associated data,
-    e.g. trigger events. Data can be binary (8, 16 or 32 bit) values, text
-    or comma separated values (cvs).
+    """
+    Event entities represent specific timepoints with associated data,
+    e.g. trigger events. Data can be binary (8, 16 or 32 bit) values,
+    text or comma separated values (cvs).
     """
     EVENT_TEXT  = 1
     EVENT_CSV   = 2
@@ -18,11 +17,11 @@ class EventEntity(Entity):
 
     @property
     def event_type(self):
-        """The type of the event:
-
-        * binary (8, 16, 32 bit) [``EVENT_BYTE, EVENT_WORD, EVENT_DWORD``]
-        * text                   [``EVENT_TEXT``]
-        * comma separated values (csv) [``EVENT_CSV``]
+        """
+        The type of the event:
+        * binary (8, 16, 32 bit)        [EVENT_BYTE, EVENT_WORD, EVENT_DWORD]
+        * text                          [EVENT_TEXT]
+        * comma separated values (csv)  [EVENT_CSV]
         """
         return self._info['EventType']
 
@@ -42,7 +41,8 @@ class EventEntity(Entity):
         return self._info['MinDataLength']
 
     def get_data(self, index):
-        """Retrieve the data at ``index``. Returns a 2-tuple with the
+        """
+        Retrieve the data at ``index``. Returns a 2-tuple with the
         timestamp of the data at the first position (``[0]``) and the
         actual data a the second position (``[1]``)).
         Example use: ``timestamp, data = event.get_data(0)``"""
