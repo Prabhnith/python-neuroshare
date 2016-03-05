@@ -1,4 +1,3 @@
-
 class EntityTime(object):
     Closest = 0
     Before = -1
@@ -6,9 +5,8 @@ class EntityTime(object):
 
 
 class Entity(object):
-    """Base class of all entities that are contained in a neuroshare file
-    """
-    def __init__(self, entity_id, nsfile, entity_info):
+    """Base class of all entities that are contained in a neuroshare file"""
+    def __init__(self, entity_id=0, nsfile=None, entity_info=None):
         self._info = entity_info
         self._id = entity_id
         self._file = nsfile
@@ -25,6 +23,7 @@ class Entity(object):
 
     @property
     def metadata_raw(self):
+        """Returns the metadata of this entity"""
         return self._info
 
     @property
@@ -46,8 +45,9 @@ class Entity(object):
         """Convert from a given index to the corresponding timestamp"""
         return self._file.library._get_time_by_index(self, index)
 
-    def get_index_by_time(self, timepoint, position=EntityTime.Closest):
-        """Convert from a given timestamp to the corresponding index.
+    def get_index_by_time(self, timepoint=0, position=EntityTime.Closest):
+        """
+        Convert from a given timestamp to the corresponding index.
         The position argument controls how the timestamp is matched to the index.
         Options are:
 
@@ -58,12 +58,12 @@ class Entity(object):
         return self._file.library._get_index_by_time(self, timepoint, position)
 
     def __len__(self):
+        """It returns the item count"""
         return self.item_count
 
 
 class EntityType(object):
     Unknown = 0
-    Unkown = 0
     Event = 1
     Analog = 2
     Segment = 3
