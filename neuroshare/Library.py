@@ -2,7 +2,6 @@ import os
 import sys
 from . import _capi
 
-
 class ArgumentError(Exception):
     def __init__(self, arg, msg):
         self.arg = arg
@@ -30,7 +29,6 @@ class DLLNotFound(DLLException):
 
 
 def _find_dll(library_name):
-    
     known_paths = ["~/.neuroshare", "/usr/lib/neuroshare", "/usr/local/lib/neuroshare"]
     platform = sys.platform
 
@@ -58,7 +56,6 @@ def _find_dll(library_name):
 
 
 def find_library_for_file(filename):
-
     dll_map = {"mcd": "nsMCDLibrary",
                "plx": "nsPlxLibrary",
                "map": "nsAOLibrary",
@@ -90,10 +87,7 @@ def load_library_for_file(filename):
     return Library.for_file(filename)
 
 # ## Library Implementation
-
-
 class Library(object):
-
     _loaded_libs = {}
 
     @classmethod
