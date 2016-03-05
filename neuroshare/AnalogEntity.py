@@ -1,12 +1,11 @@
-
 from .Entity import Entity
 
-
 class AnalogEntity(Entity):
-    """:class:`Entity` that represents continuously sampled, i.e. digitized, analog data.
-    Examples are waveforms recorded via an electrode (microelectrodes, EKG, EEG).
+    """
+    :class:Entity that represents continuously sampled, i.e. digitized, analog data.
+    Examples are waveform recorded via an electrode (micro-electrodes, EKG, EEG).
     Actual data can be accessed via the :func:`get_data` function.
-    .. note:: data may contain gaps (e.g. when no data is recorded between trails)
+    :note:: data may contain gaps (e.g. when no data is recorded between trails)
     """
     def __init__(self, nsfile, eid, info):
         super(AnalogEntity, self).__init__(eid, nsfile, info)
@@ -92,12 +91,13 @@ class AnalogEntity(Entity):
         return self._info['ProbeInfo']
 
     def get_data(self, index=0, count=-1):
-        """Retrieve raw data from file starting at ``index`` up to ``count`` elements.
+        """Retrieve raw data from file starting at "index" up to "count" elements.
         If no parameters are given retrieves all available data.
 
-        Returns a tuple with three elements containing the raw data ``[0]``, the timestamp
-        of each data point ``[1]`` and how many of the data values are continuous ``[2]``.
-        Example use: ``data, times, count = analog1.get_data()``
+        Returns a tuple with three elements containing the raw data [0],
+        the timestamp of each data point [1] and
+        how many of the data values are continuous [2].
+        Example: data, times, count = analog1.get_data()
 
         Raw data and timestamp data are return as :class:`numpy.ndarray`.
         """
