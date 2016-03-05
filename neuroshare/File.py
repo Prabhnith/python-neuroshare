@@ -1,4 +1,3 @@
-
 from .Library import Library
 from .Entity import EntityType
 from .EventEntity import EventEntity
@@ -6,12 +5,11 @@ from .AnalogEntity import AnalogEntity
 from .SegmentEntity import SegmentEntity
 from .NeuralEntity import NeuralEntity
 
-
 class EntityProxy(object):
-    def __init__(self, nsfile):
+    def __init__(self, nsfile=None):
         self._nsfile = nsfile
 
-    def __getitem__(self, key):
+    def __getitem__(self, key=None):
         return self._nsfile.get_entity(key)
 
     def __iter__(self):
@@ -30,8 +28,7 @@ class File(object):
     Individual entities can be opened via the :func:`get_entity` function or
     the :func:`entities` property. NB: The first entity index is **0**
     """
-
-    def __init__(self, filename, library=None):
+    def __init__(self, filename=None, library=None):
         self._handle = None
         self._filename = filename
         if not library:
@@ -40,7 +37,7 @@ class File(object):
         self._lib = library
         (handle, info) = self._lib._open_file(filename)
         self._handle = handle
-        self._info = info
+        self._info   = info
         self._eproxy = EntityProxy(self)
 
     def __del__(self):
@@ -96,7 +93,6 @@ class File(object):
         Returns a :py:class:`datetime.datetime` object.
         """
         from datetime import datetime
-
         year = self._info['Time_Year']
         month = self._info['Time_Month']
         day = self._info['Time_Day']
@@ -113,23 +109,27 @@ class File(object):
         """Open the entity at the given index."""
         info = self._lib._get_entity_info(self, entity_id)
         entity_type = info['EntityType']
-
-        if entity_type == EntityType.Event:
-            entity = EventEntity(self, entity_id, info)
-        elif entity_type == EntityType.Analog:
-            entity = AnalogEntity(self, entity_id, info)
-        elif entity_type == EntityType.Segment:
-            entity = SegmentEntity(self, entity_id, info)
-        elif entity_type == EntityType.Neural:
-            entity = NeuralEntity(self, entity_id, info)
-        else:
+        
+        try:
+            if entity_type == EntityType.Event:
+                entity = EventEntity(self, entity_id, info)
+            elif entity_type == EntityType.Analog:
+                entity = AnalogEntity(self, entity_id, info)
+            elif entity_type == EntityType.Segment:
+                entity = SegmentEntity(self, entity_id, info)
+            elif entity_type == EntityType.Neural:
+                entity = NeuralEntity(self, entity_id, info)
+        except ValueError:
+            print("Entity id not correct.")
             return None  # should not happen, throw exception?
 
         return entity
 
     def list_entities(self, start=0, end=-1):
-        """List all entities. The range can be limited
-        via the ``start`` and ``end`` parameters."""
+        """
+        List all entities. The range can be limited
+        via the ``start`` and ``end`` parameters.
+        """
         if end == -1:
             end = self.entity_count
 
@@ -138,10 +138,10 @@ class File(object):
 
     @property
     def entities(self):
-        """Property that returns a proxy object to allow the opening of
-        entities in a via indexing, ie::
-
-            entity = datafile.entities[10] #retrieve the entity with at 10
+        """
+        Property that returns a proxy object to allow the opening of
+        entities in a via indexing, ie
+        entity = datafile.entities[10] #retrieve the entity at 10
         """
         return self._eproxy
 
