@@ -1,8 +1,8 @@
 from .Entity import Entity
 
-
 class NeuralEntity(Entity):
-    """Entity the represents timestamps of action potentials, i.e. spike times.
+    """
+    Entity represent timestamps of action potentials, i.e. spike times.
     Cutouts of the waveforms corresponding to spike data in a neural entity
     might be found in a separate :class:`SegmentEntity` (cf. :func:`source_entity_id`).
     """
@@ -16,21 +16,27 @@ class NeuralEntity(Entity):
 
     @property
     def source_entity_id(self):
-        """[*Optional*] Id of the source entity of this spike, if any.
+        """
+        [*Optional*] Id of the source entity of this spike, if any.
         For example the spike waveform of the action potential corresponding
-        to this spike might have been recorded in a segment entity."""
+        to this spike might have been recorded in a segment entity.
+        """
         return self._info['SourceEntityID']
 
     @property
     def source_unit_id(self):
-        """[*Optional*] unit id used in the source entity
-        (cf. :func:`source_entity_id`)"""
+        """
+        [*Optional*] unit id used in the source entity
+        (cf. :func:`source_entity_id`)
+        """
         return self._info['SourceUnitID']
 
     def get_data(self, index=0, count=-1):
-        """Retrieve the spike times associated with this entity. A subset
+        """
+        Retrieve the spike times associated with this entity. A subset
         of the data can be requested via the ``index`` and ``count``
-        parameters."""
+        parameters.
+        """
         lib = self.file.library
         if count < 0:
             count = self.item_count
