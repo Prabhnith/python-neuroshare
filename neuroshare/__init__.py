@@ -8,6 +8,7 @@ from .Library import Library
 from .File import File
 from .Entity import EntityType
 from .Entity import Entity
+from .Entity import EntityTime
 from .EventEntity import EventEntity
 from .AnalogEntity import AnalogEntity
 from .SegmentEntity import SegmentEntity
