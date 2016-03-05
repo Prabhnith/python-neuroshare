@@ -1,10 +1,11 @@
 from .Entity import Entity
 
-
 class SegmentSource(object):
-    """Segment sources provide access to the metadata of individual sources
-    of a :class:`SegmentEntity`"""
-    def __init__(self, segment, source_id, info):
+    """
+    Segment sources provide access to the metadata of individual sources
+    of a :class:`SegmentEntity`
+    """
+    def __init__(self, segment=None, source_id=None, info=None):
         self._segment = segment
         self._source_id = source_id
         self._info = info
@@ -103,9 +104,11 @@ class SourcesBag(object):
 
 
 class SegmentEntity(Entity):
-    """Segment entities contain cutouts of continuously sampled analog signals from
+    """
+    Segment entities contain cutouts of continuously sampled analog signals from
     one or more sources that are usually short in time. Most prominent example are
-    waveforms of action potentials from one ore more electrodes."""
+    waveforms of action potentials from one ore more electrodes.
+    """
     def __init__(self, nsfile, eid, info):
         from copy import copy
         self._source_infos = info['SourceInfos']
